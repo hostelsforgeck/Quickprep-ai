@@ -16,7 +16,9 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = '/tmp/uploads'  # Change to a writable location
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 DATA_FOLDER = 'data'
 QUESTION_FOLDER = os.path.join(DATA_FOLDER, 'questions')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
