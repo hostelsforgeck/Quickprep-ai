@@ -1,0 +1,714 @@
+<!-- all_quizzes.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Quizzes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f7ff;
+            color: #333;
+            position: relative;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1a73e8;
+            color: white;
+            padding: 0.75rem 2rem;
+            box-shadow: 0 2px 10px rgba(26, 115, 232, 0.2);
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        
+        .navbar-brand i {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+        
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.25);
+            font-weight: 500;
+        }
+        
+        .nav-item i {
+            margin-right: 0.35rem;
+        }
+        
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logout-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            color: #1a73e8;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #1a73e8;
+            background-color: white;
+            border: 1px solid #1a73e8;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .back-btn:hover {
+            background-color: #f0f7ff;
+            box-shadow: 0 2px 5px rgba(26, 115, 232, 0.1);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: #e8f0fe;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #e8eaed;
+        }
+        
+        .card-header h2 {
+            color: #1a73e8;
+            font-size: 1.25rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .quiz-list {
+            list-style: none;
+        }
+        
+        .quiz-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e8eaed;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .quiz-item:last-child {
+            border-bottom: none;
+        }
+        
+        .quiz-item:hover {
+            background-color: #f8fafe;
+        }
+        
+        .quiz-name {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #3c4043;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        
+        .quiz-name i {
+            color: #1a73e8;
+            font-size: 1.25rem;
+        }
+        
+        .quiz-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .edit-btn {
+            background-color: #e8f0fe;
+            color: #1a73e8;
+        }
+        
+        .edit-btn:hover {
+            background-color: #d2e3fc;
+        }
+        
+        .preview-btn {
+            background-color: #e6f4ea;
+            color: #137333;
+        }
+        
+        .preview-btn:hover {
+            background-color: #ceead6;
+        }
+        
+        .delete-btn {
+            background-color: #fce8e6;
+            color: #c5221f;
+        }
+        
+        .delete-btn:hover {
+            background-color: #fadbd9;
+        }
+        
+        .empty-state {
+            padding: 3rem 2rem;
+            text-align: center;
+            color: #5f6368;
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            color: #dadce0;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-text {
+            margin-bottom: 1.5rem;
+        }
+        
+        .create-btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(26, 115, 232, 0.2);
+        }
+        
+        .create-btn:hover {
+            background-color: #0d62d1;
+            box-shadow: 0 4px 8px rgba(26, 115, 232, 0.3);
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(24, 49, 83, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-container {
+            background-color: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 0;
+            box-shadow: 0 10px 25px rgba(26, 115, 232, 0.25);
+            transform: translateY(0);
+            animation: slideIn 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background-color: #e8f0fe;
+            padding: 1.25rem;
+            border-bottom: 1px solid #e8eaed;
+            display: flex;
+            align-items: center;
+        }
+        
+        .modal-icon {
+            background-color: #d2e3fc;
+            color: #1a73e8;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a73e8;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+            color: #3c4043;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background-color: #f8fafe;
+            border-top: 1px solid #e8eaed;
+        }
+        
+        .btn-cancel {
+            background-color: #f1f3f4;
+            color: #3c4043;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #e8eaed;
+        }
+        
+        .btn-confirm {
+            background-color: #c5221f;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(197, 34, 31, 0.2);
+        }
+        
+        .btn-confirm:hover {
+            background-color: #a70e0b;
+            box-shadow: 0 4px 8px rgba(197, 34, 31, 0.3);
+        }
+        /* Notification styles */
+.notification {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    transform: translateX(110%);
+    transition: transform 0.3s ease;
+    max-width: 350px;
+}
+
+.notification.visible {
+    transform: translateX(0);
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.notification.success {
+    border-left: 4px solid #34A853;
+}
+
+.notification.error {
+    border-left: 4px solid #EA4335;
+}
+
+.notification.info {
+    border-left: 4px solid #4285F4;
+}
+
+.notification.success i {
+    color: #34A853;
+}
+
+.notification.error i {
+    color: #EA4335;
+}
+
+.notification.info i {
+    color: #4285F4;
+}
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-chart-pie"></i>
+            <span>AdminPanel</span>
+        </div>
+        <div class="navbar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+            <a href="{{ url_for('users') }}" class="nav-item"><i class="fas fa-users"></i>Users</a>
+            <a href="{{ url_for('all_quizzes') }}" class="nav-item active"><i class="fas fa-clipboard-list"></i>Quizzes</a>
+        </div>
+        <div class="navbar-right">
+            <button class="logout-btn" onclick="showLogoutModal()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-clipboard-list"></i>
+                Quiz Management
+            </h1>
+            <a href="{{ url_for('dashboard') }}" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>
+                    <i class="fas fa-list"></i>
+                    All Quizzes
+                </h2>
+            </div>
+            <div class="card-body">
+                {% if quizzes %}
+                <ul class="quiz-list">
+                    {% for quiz in quizzes %}
+                    <li class="quiz-item">
+                        <div class="quiz-name">
+                            <i class="fas fa-file-alt"></i>
+                            {{ quiz.replace('.json', '') }}
+                        </div>
+                        <div class="quiz-actions">
+                            <a href="{{ url_for('quiz', filename=quiz) }}" class="action-btn preview-btn">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </a>
+                            <a href="{{ url_for('edit_quiz', filename=quiz) }}" class="action-btn edit-btn">
+                                <i class="fas fa-pen"></i>
+                                Edit
+                            </a>
+                            <button class="action-btn delete-btn" onclick="showDeleteModal('{{ quiz }}')">
+                                <i class="fas fa-trash"></i>
+                                Delete
+                            </button>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-clipboard"></i>
+                    </div>
+                    <p class="empty-text">No quizzes available yet. Upload a PDF from the dashboard to create a quiz.</p>
+                    <a href="{{ url_for('dashboard') }}" class="create-btn">
+                        <i class="fas fa-upload"></i>
+                        Upload PDF
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-trash"></i>
+                </div>
+                <h3 class="modal-title">Confirm Deletion</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the quiz <span id="quizToDelete"></span>?</p>
+                <p>This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="hideDeleteModal()">Cancel</button>
+                <button class="btn-confirm" onclick="deleteQuiz()">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <h3 class="modal-title">Confirm Logout</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to logout from the admin dashboard?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="hideLogoutModal()">Cancel</button>
+                <button class="btn-confirm" onclick="logout()">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Current quiz to delete
+        let currentQuizFilename = '';
+        
+        // Modal functions
+        function showDeleteModal(quizFilename) {
+            currentQuizFilename = quizFilename;
+            document.getElementById('quizToDelete').textContent = quizFilename.replace('.json', '');
+            document.getElementById('deleteModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        function hideDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Enable scrolling
+        }
+        
+        function showLogoutModal() {
+            document.getElementById('logoutModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        function hideLogoutModal() {
+            document.getElementById('logoutModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Enable scrolling
+        }
+        
+        function deleteQuiz() {
+    // Show loading state (optional)
+    document.querySelector('.btn-confirm').textContent = 'Deleting...';
+    document.querySelector('.btn-confirm').disabled = true;
+    
+    // Call the delete API endpoint
+    fetch('/delete_quiz/' + currentQuizFilename, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Server returned ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // Success message
+            hideDeleteModal();
+            
+            // Find and remove the quiz item from the DOM
+            const quizItems = document.querySelectorAll('.quiz-item');
+            for (let item of quizItems) {
+                const quizName = item.querySelector('.quiz-name').textContent.trim() + '.json';
+                if (quizName === currentQuizFilename) {
+                    item.remove();
+                    break;
+                }
+            }
+            
+            // Check if there are no quizzes left and show empty state if needed
+            const remainingQuizzes = document.querySelectorAll('.quiz-item');
+            if (remainingQuizzes.length === 0) {
+                // Create and display the empty state
+                const cardBody = document.querySelector('.card-body');
+                cardBody.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-clipboard"></i>
+                        </div>
+                        <p class="empty-text">No quizzes available yet. Upload a PDF from the dashboard to create a quiz.</p>
+                        <a href="/dashboard" class="create-btn">
+                            <i class="fas fa-upload"></i>
+                            Upload PDF
+                        </a>
+                    </div>
+                `;
+            }
+            
+            // Show success notification (optional)
+            showNotification('Quiz deleted successfully', 'success');
+        } else {
+            // Error message
+            hideDeleteModal();
+            showNotification('Error: ' + (data.error || 'Unknown error'), 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        hideDeleteModal();
+        showNotification('An error occurred while trying to delete the quiz', 'error');
+    })
+    .finally(() => {
+        // Reset button state
+        document.querySelector('.btn-confirm').textContent = 'Yes, Delete';
+        document.querySelector('.btn-confirm').disabled = false;
+    });
+}
+
+// Simple notification function (add this)
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+    
+    // Append to body
+    document.body.appendChild(notification);
+    
+    // Add visible class after a small delay (for animation)
+    setTimeout(() => {
+        notification.classList.add('visible');
+    }, 10);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('visible');
+        setTimeout(() => {
+            notification.remove();
+        }, 300); // Match this with CSS transition time
+    }, 3000);
+}
+        
+        function logout() {
+            // Redirect to logout URL
+            window.location.href = '/logout';
+        }
+        
+        // Close modals if clicking outside
+        window.addEventListener('click', function(event) {
+            const deleteModal = document.getElementById('deleteModal');
+            const logoutModal = document.getElementById('logoutModal');
+            
+            if (event.target === deleteModal) {
+                hideDeleteModal();
+            } else if (event.target === logoutModal) {
+                hideLogoutModal();
+            }
+        });
+        
+        // Close modals on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (document.getElementById('deleteModal').style.display === 'flex') {
+                    hideDeleteModal();
+                } else if (document.getElementById('logoutModal').style.display === 'flex') {
+                    hideLogoutModal();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

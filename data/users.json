@@ -1,0 +1,102 @@
+{
+    "admin": {
+        "password": "admin123"
+    },
+    "user1": {
+        "password": "user123",
+        "quizzes": {
+            "HUT300_M3.pdf.json": [
+                {
+                    "score": 5,
+                    "total": 25
+                },
+                {
+                    "score": 6,
+                    "total": 25
+                },
+                {
+                    "score": 5,
+                    "total": 25
+                },
+                {
+                    "score": 11,
+                    "total": 25
+                }
+            ],
+            "module_note.pdf.json": [
+                {
+                    "score": 3,
+                    "total": 10
+                }
+            ],
+            "qp.json": [
+                {
+                    "score": 2,
+                    "total": 10
+                },
+                {
+                    "score": 2,
+                    "total": 10
+                }
+            ]
+        }
+    },
+    "user2": {
+        "password": "user456",
+        "quizzes": {
+            "module_note.pdf.json": [
+                {
+                    "score": 1,
+                    "total": 10
+                }
+            ],
+            "HUT300_M3.json": [
+                {
+                    "score": 2,
+                    "total": 10
+                }
+            ]
+        }
+    },
+    "user3": {
+        "password": "user456",
+        "quizzes": {
+            "module_note.pdf.json": [
+                {
+                    "score": 1,
+                    "total": 10
+                }
+            ]
+        }
+    },
+    "malik": {
+        "password": "Malik@123",
+        "quizzes": {
+            "HUT300_M3.json": [
+                {
+                    "score": 3,
+                    "total": 10
+                }
+            ]
+        }
+    },
+    "aman": {
+        "password": "Aman@123",
+        "quizzes": {}
+    },
+    "ameya": {
+        "password": "Ameya@123",
+        "quizzes": {
+            "HUT300_M3.json": [
+                {
+                    "score": 5,
+                    "total": 10
+                },
+                {
+                    "score": 5,
+                    "total": 10
+                }
+            ]
+        }
+    }
+}

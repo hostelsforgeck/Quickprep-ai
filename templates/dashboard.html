@@ -1,0 +1,635 @@
+<!-- admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f7ff;
+            color: #333;
+            position: relative;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1a73e8;
+            color: white;
+            padding: 0.75rem 2rem;
+            box-shadow: 0 2px 10px rgba(26, 115, 232, 0.2);
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        
+        .navbar-brand i {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+        
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.25);
+            font-weight: 500;
+        }
+        
+        .nav-item i {
+            margin-right: 0.35rem;
+        }
+        
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logout-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .welcome-banner {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
+            border-left: 4px solid #1a73e8;
+        }
+        
+        .welcome-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .welcome-title {
+            font-size: 1.5rem;
+            color: #1a73e8;
+        }
+        
+        .date-display {
+            color: #5f6368;
+            font-size: 0.9rem;
+        }
+        
+        .welcome-subtitle {
+            color: #5f6368;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            color: #1a73e8;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .upload-container {
+            border: 2px dashed #4285f4;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.2s;
+            background-color: #f5f8ff;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .upload-container:hover, .upload-container.dragover {
+            border-color: #1a73e8;
+            background-color: #e8f0fe;
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: #4285f4;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            color: #5f6368;
+            margin-bottom: 0.5rem;
+        }
+        
+        .file-info {
+            display: none;
+            margin: 1rem 0;
+            padding: 0.75rem;
+            background-color: #e8f0fe;
+            border-radius: 8px;
+            align-items: center;
+            border-left: 3px solid #4285f4;
+        }
+        
+        .file-info i {
+            color: #4285f4;
+            font-size: 1.25rem;
+            margin-right: 0.5rem;
+        }
+        
+        .file-name {
+            flex-grow: 1;
+            font-weight: 500;
+            color: #1a73e8;
+        }
+        
+        .file-size {
+            color: #5f6368;
+            font-size: 0.875rem;
+        }
+        
+        .upload-btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 auto;
+            box-shadow: 0 2px 5px rgba(26, 115, 232, 0.2);
+        }
+        
+        .upload-btn:hover {
+            background-color: #0d62d1;
+            box-shadow: 0 4px 8px rgba(26, 115, 232, 0.3);
+        }
+        
+        .upload-btn:disabled {
+            background-color: #c2d7ff;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .loader {
+            display: none;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            width: 1rem;
+            height: 1rem;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .results-container {
+            display: none;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background-color: #e6f4ea;
+            border-left: 4px solid #34a853;
+            margin-top: 1.5rem;
+        }
+        
+        .results-title {
+            color: #137333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .results-title i {
+            color: #34a853;
+        }
+        
+        #mcqResults {
+            padding: 1rem;
+            background-color: white;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e8eaed;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(24, 49, 83, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-container {
+            background-color: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 0;
+            box-shadow: 0 10px 25px rgba(26, 115, 232, 0.25);
+            transform: translateY(0);
+            animation: slideIn 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background-color: #e8f0fe;
+            padding: 1.25rem;
+            border-bottom: 1px solid #e8eaed;
+            display: flex;
+            align-items: center;
+        }
+        
+        .modal-icon {
+            background-color: #d2e3fc;
+            color: #1a73e8;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a73e8;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+            color: #3c4043;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background-color: #f8fafe;
+            border-top: 1px solid #e8eaed;
+        }
+        
+        .btn-cancel {
+            background-color: #f1f3f4;
+            color: #3c4043;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #e8eaed;
+        }
+        
+        .btn-confirm {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(26, 115, 232, 0.2);
+        }
+        
+        .btn-confirm:hover {
+            background-color: #0d62d1;
+            box-shadow: 0 4px 8px rgba(26, 115, 232, 0.3);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-chart-pie"></i>
+            <span>AdminPanel</span>
+        </div>
+        <div class="navbar-nav">
+            <a href="#" class="nav-item active"><i class="fas fa-home"></i>Dashboard</a>
+            <a href="{{ url_for('users') }}" class="nav-item"><i class="fas fa-users"></i>Users</a>
+            <a href="{{ url_for('all_quizzes') }}" class="nav-item"><i class="fas fa-clipboard-list"></i>Quizzes</a>
+
+        </div>
+        <div class="navbar-right">
+            <button class="logout-btn" onclick="showLogoutModal()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <div class="welcome-header">
+                <h1 class="welcome-title">Welcome back, Admin</h1>
+                <div class="date-display" id="currentDate"></div>
+            </div>
+            <p class="welcome-subtitle">Your PDF processing dashboard is ready</p>
+        </div>
+        
+        <!-- File Upload Card -->
+        <div class="card">
+            <h2><i class="fas fa-file-pdf"></i> Upload PDF</h2>
+            
+            <div id="uploadContainer" class="upload-container">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <p class="upload-text">Drag & drop your PDF file here or click to browse</p>
+                <p class="upload-text">Supported format: PDF</p>
+                <input type="file" id="fileUpload" accept=".pdf" style="display: none;">
+            </div>
+            
+            <div id="fileInfo" class="file-info">
+                <i class="fas fa-file-pdf"></i>
+                <span id="fileName" class="file-name">No file selected</span>
+                <span id="fileSize" class="file-size"></span>
+            </div>
+            
+            <button id="uploadBtn" class="upload-btn" onclick="uploadFile()" disabled>
+                <i class="fas fa-upload"></i>
+                <span>Upload PDF</span>
+                <div id="uploadLoader" class="loader"></div>
+            </button>
+            
+            <div id="resultsContainer" class="results-container">
+                <div class="results-title">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Upload Successful</span>
+                </div>
+                <p>The PDF has been processed. Here are the MCQ results:</p>
+                <div id="mcqResults"></div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <h3 class="modal-title">Confirm Logout</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to logout from the admin dashboard?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="hideLogoutModal()">Cancel</button>
+                <button class="btn-confirm" onclick="logout()">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Display current date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // Update every minute
+        
+        // File upload functionality
+        const fileInput = document.getElementById('fileUpload');
+        const uploadContainer = document.getElementById('uploadContainer');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const uploadLoader = document.getElementById('uploadLoader');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const mcqResults = document.getElementById('mcqResults');
+        
+        // Handle file selection
+        fileInput.addEventListener('change', function() {
+            handleFileSelect(this.files[0]);
+        });
+        
+        // Setup drag and drop
+        uploadContainer.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        uploadContainer.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+        
+        uploadContainer.addEventListener('dragleave', function() {
+            this.classList.remove('dragover');
+        });
+        
+        uploadContainer.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            
+            if (e.dataTransfer.files.length > 0) {
+                handleFileSelect(e.dataTransfer.files[0]);
+            }
+        });
+        
+        // Handle file selection
+        function handleFileSelect(file) {
+            if (file && file.type === 'application/pdf') {
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                fileInfo.style.display = 'flex';
+                uploadBtn.disabled = false;
+            } else {
+                alert('Please select a valid PDF file.');
+                resetUploadState();
+            }
+        }
+        
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' bytes';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(1) + ' MB';
+        }
+        
+        // Upload file
+        function uploadFile() {
+            let file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select a file first.');
+                return;
+            }
+            
+            // Show loader and disable button
+            uploadLoader.style.display = 'block';
+            uploadBtn.disabled = true;
+            uploadBtn.querySelector('span').textContent = 'Uploading...';
+            
+            let formData = new FormData();
+            formData.append("file", file);
+            
+            fetch("/upload", { 
+                method: "POST", 
+                body: formData 
+            })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Server responded with an error');
+                }
+                return res.json();
+            })
+            .then(data => {
+                // Success
+                uploadLoader.style.display = 'none';
+                uploadBtn.querySelector('span').textContent = 'Upload PDF';
+                
+                // Display results
+                mcqResults.innerText = data.mcqs;
+                resultsContainer.style.display = 'block';
+            })
+            .catch(error => {
+                // Error handling
+                console.error('Error:', error);
+                alert('An error occurred during upload: ' + error.message);
+                
+                // Reset upload state
+                uploadLoader.style.display = 'none';
+                uploadBtn.disabled = false;
+                uploadBtn.querySelector('span').textContent = 'Upload PDF';
+            });
+        }
+        
+        // Reset upload state
+        function resetUploadState() {
+            fileInput.value = '';
+            fileInfo.style.display = 'none';
+            uploadBtn.disabled = true;
+            resultsContainer.style.display = 'none';
+        }
+        
+        // Modal functions
+        function showLogoutModal() {
+            document.getElementById('logoutModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        function hideLogoutModal() {
+            document.getElementById('logoutModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Enable scrolling
+        }
+        
+        function logout() {
+            // Redirect to logout URL
+            window.location.href = '/logout';
+        }
+        
+        // Close modal if clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('logoutModal');
+            if (event.target === modal) {
+                hideLogoutModal();
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && document.getElementById('logoutModal').style.display === 'flex') {
+                hideLogoutModal();
+            }
+        });
+    </script>
+</body>
+</html>

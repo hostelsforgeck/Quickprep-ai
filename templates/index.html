@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quickprep.AI | Smart Learning Platform</title>
+    <style>
+        /* Apple-style Font Setup */
+        @import url('https://fonts.cdnjs.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        
+        /* Gotham Font Setup (Replace with actual Gotham font URL if you have the font hosted) */
+        @font-face {
+            font-family: 'Gotham';
+            src: url('https://fonts.cdnfonts.com/s/16442/Gotham-Book.ttf'); /* Use actual Gotham URL or local font */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            background-color: #121212; /* Dark background for dark mode */
+            color: #e0e0e0; /* Light text for contrast */
+            line-height: 1.5;
+            font-family: 'Gotham', sans-serif; /* Apply Gotham font here for body text */
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background-color: rgba(18, 18, 18, 0.9); /* Dark background with some transparency */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            font-family: 'Gotham', sans-serif; /* Gotham for the logo */
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            letter-spacing: -0.01em;
+            font-family: 'Gotham', sans-serif; /* Gotham for navigation links */
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+            transform: translateY(-3px);
+        }
+        
+        /* Improved Get Started and Register layout */
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .cta-button {
+            background-color: #e0e0e0;
+            color: #121212;
+            padding: 0.6rem 1.4rem;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+            font-family: 'Gotham', sans-serif; /* Gotham for CTA button */
+            cursor: pointer;
+            border: none;
+        }
+        
+        .register-button {
+            background-color: transparent;
+            color: #e0e0e0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .cta-button:hover {
+            background-color: #ccc;
+            transform: scale(1.05);
+        }
+        
+        .register-button:hover {
+            background-color: #333;
+            border-color: #ccc;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            font-family: 'Gotham', sans-serif; /* Gotham for h1 */
+            animation: slideUp 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #b0b0b0;
+            max-width: 36rem;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            animation: fadeIn 1.5s ease-in-out;
+            font-family: 'Gotham', sans-serif; /* Gotham for paragraph */
+        }
+
+        /* Features Section - Increased Height */
+        .features {
+            background-color: #1d1d1d; /* Dark background for features */
+            padding: 5rem 2rem;
+            text-align: center;
+            min-height: 90vh; /* Match hero section height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .features h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            color: #e0e0e0; /* Light text */
+            font-family: 'Gotham', sans-serif; /* Gotham for h2 */
+        }
+
+        .feature-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .features .feature {
+            width: 30%;
+            padding: 2.5rem;
+            background: #2c2c2c; /* Dark background for features */
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Gotham', sans-serif; /* Gotham for feature text */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 300px;
+        }
+
+        .features .feature:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .features .feature h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .features .feature p {
+            color: #b0b0b0;
+            font-size: 1rem;
+        }
+
+        /* Team Section with Carousel - Removed controls and indicators */
+        .team-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background-color: #121212;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-section h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+            font-family: 'Gotham', sans-serif;
+        }
+
+        .carousel-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 4rem;
+        }
+
+        .carousel {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .team-member {
+            width: 300px;
+            background-color: #2c2c2c;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            background-color: #3a3a3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e0e0e0;
+            font-size: 4rem;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover .member-photo {
+            transform: scale(1.05);
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .member-title {
+            font-size: 1rem;
+            color: #b0b0b0;
+            margin-bottom: 1.5rem;
+        }
+
+        .member-bio {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #3a3a3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: #e0e0e0;
+            color: #1d1d1d;
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1d1d1d;
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            letter-spacing: -0.01em;
+            font-family: 'Gotham', sans-serif; /* Gotham for footer links */
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .copyright {
+            color: #b0b0b0;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        /* Auth Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .auth-container {
+            background-color: #2c2c2c;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            transition: transform 0.3s ease, opacity 0.3s;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .modal-overlay.active .auth-container {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .auth-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .auth-header h1 {
+            color: #e0e0e0;
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-family: 'Gotham', sans-serif;
+        }
+        
+        .auth-header p {
+            color: #b0b0b0;
+            font-size: 14px;
+            font-family: 'Gotham', sans-serif;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e0e0e0;
+            font-weight: 500;
+            font-size: 14px;
+            font-family: 'Gotham', sans-serif;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #1d1d1d;
+            color: #e0e0e0;
+        }
+        
+        .form-control:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+            outline: none;
+        }
+        
+        .form-control::placeholder {
+            color: #777;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 45px;
+            cursor: pointer;
+            color: #888;
+            user-select: none;
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 15px;
+            font-family: 'Gotham', sans-serif;
+        }
+        
+        .auth-btn:hover {
+            background-color: #3a7bc8;
+        }
+        
+        .auth-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .form-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #b0b0b0;
+            font-family: 'Gotham', sans-serif;
+        }
+        
+        .form-footer button {
+            color: #4a90e2;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+            padding: 0 5px;
+            font-family: 'Gotham', sans-serif;
+        }
+        
+        .form-footer button:hover {
+            color: #3a7bc8;
+        }
+        
+        .error-message {
+            display: none;
+            background-color: rgba(211, 47, 47, 0.2);
+            color: #ff6b6b;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+            font-family: 'Gotham', sans-serif;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: rgba(56, 142, 60, 0.2);
+            color: #69f0ae;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+            font-family: 'Gotham', sans-serif;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #e0e0e0;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .modal-close:hover {
+            transform: scale(1.2);
+            color: #fff;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake {
+            animation: shake 0.6s;
+        }
+        
+        .loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        
+        .loading-spinner {
+            display: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 2px solid white;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+            position: relative;
+            top: 3px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+            .auth-container {
+                padding: 30px 20px;
+                width: 90%;
+            }
+            
+            .features .feature {
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .auth-buttons {
+                gap: 0.5rem;
+            }
+            
+            .cta-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Form toggle */
+        #loginForm, #registerForm {
+            display: none;
+        }
+        
+        .active-form {
+            display: block !important;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">QuickPrep.ai</a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#team">Team</a>
+        </div>
+        <div class="auth-buttons">
+            <button id="loginBtn" class="cta-button">Login</button>
+            <button id="registerBtn" class="cta-button register-button">Register</button>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>QuickPrep.ai</h1>
+        <p>AI-powered learning tools that transform the way you prepare for exams and tests.</p>
+        <button id="heroCtaBtn" class="cta-button">Let's Go</button>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2>Our Features</h2>
+        <div class="feature-container">
+            <div class="feature">
+                <h3>AI-Powered Learning</h3>
+                <p>Personalized learning plans that adapt to your pace and strengths.</p>
+            </div>
+            <div class="feature">
+                <h3>Data-Driven Insights</h3>
+                <p>Track your progress with intelligent analytics and detailed reports.</p>
+            </div>
+            <div class="feature">
+                <h3>Collaborative Study</h3>
+                <p>Collaborate with peers and experts to enhance your learning experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section" id="team">
+        <h2>Meet Our Creators</h2>
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="team-member">
+                    <div class="member-photo">👩</div>
+                    <h3 class="member-name">Alex Chen</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">GH</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">👨</div>
+                    <h3 class="member-name">Jordan Taylor</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">GH</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">👩</div>
+                    <h3 class="member-name">Sam Rodriguez</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">GH</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact</a>
+            <a href="#">Blog</a>
+        </div>
+        <p class="copyright">© 2025 Quickprep.AI. All rights reserved.</p>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-container">
+            <button class="modal-close" id="modalClose">&times;</button>
+            
+            <div class="auth-header">
+                <h1 id="formTitle">Welcome Back</h1>
+                <p id="formSubtitle">Please enter your credentials to login</p>
+            </div>
+            
+            <div id="errorMessage" class="error-message">
+                Invalid username or password. Please try again.
+            </div>
+            
+            <div id="successMessage" class="success-message">
+                Account created successfully! You can now login.
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="active-form">
+                <div class="form-group">
+                    <label for="loginUsername">Username</label>
+                    <input type="text" id="loginUsername" class="form-control" placeholder="Enter your username" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required autocomplete="current-password">
+                    <span class="password-toggle" id="loginPasswordToggle">Show</span>
+                </div>
+                
+                <button type="submit" class="auth-btn" id="loginButton">
+                    Login
+                    <span class="loading-spinner" id="loginSpinner"></span>
+                </button>
+                
+                <div class="form-footer">
+                    Don't have an account? <button type="button" id="showRegisterForm">Register now</button>
+                </div>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerUsername">Username</label>
+                    <input type="text" id="registerUsername" class="form-control" placeholder="Choose a username" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" class="form-control" placeholder="Choose a password" required autocomplete="new-password">
+                    <span class="password-toggle" id="registerPasswordToggle">Show</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required autocomplete="new-password">
+                    <span class="password-toggle" id="confirmPasswordToggle">Show</span>
+                </div>
+                
+                <button type="submit" class="auth-btn" id="registerButton">
+                    Create Account
+                    <span class="loading-spinner" id="registerSpinner"></span>
+                </button>
+                
+                <div class="form-footer">
+                    Already have an account? <button type="button" id="showLoginForm">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Keep most of the existing HTML but update the script section -->
+<!-- ... (HTML content remains the same) ... -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Modal Elements
+        const authModal = document.getElementById('authModal');
+        const modalClose = document.getElementById('modalClose');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const heroCtaBtn = document.getElementById('heroCtaBtn');
+        
+        // Form Elements
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const formTitle = document.getElementById('formTitle');
+        const formSubtitle = document.getElementById('formSubtitle');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        
+        // Login Form Elements
+        const loginUsername = document.getElementById('loginUsername');
+        const loginPassword = document.getElementById('loginPassword');
+        const loginPasswordToggle = document.getElementById('loginPasswordToggle');
+        const loginButton = document.getElementById('loginButton');
+        const loginSpinner = document.getElementById('loginSpinner');
+        
+        // Register Form Elements
+        const registerUsername = document.getElementById('registerUsername');
+        const registerPassword = document.getElementById('registerPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const registerPasswordToggle = document.getElementById('registerPasswordToggle');
+        const confirmPasswordToggle = document.getElementById('confirmPasswordToggle');
+        const registerButton = document.getElementById('registerButton');
+        const registerSpinner = document.getElementById('registerSpinner');
+        
+        // Toggle buttons
+        const showRegisterForm = document.getElementById('showRegisterForm');
+        const showLoginForm = document.getElementById('showLoginForm');
+        
+        // Modal Open/Close Functions
+        function openModal(formToShow) {
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            
+            // Reset forms
+            loginForm.reset();
+            registerForm.reset();
+            
+            // Hide messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Show correct form
+            if (formToShow === 'register') {
+                showRegisterFormFunc();
+            } else {
+                showLoginFormFunc();
+            }
+            
+            // Focus first input
+            setTimeout(() => {
+                if (formToShow === 'register') {
+                    registerUsername.focus();
+                } else {
+                    loginUsername.focus();
+                }
+            }, 300);
+        }
+        
+        function closeModal() {
+            authModal.classList.remove('active');
+            document.body.style.overflow = ''; // Allow scrolling again
+        }
+        
+        // Open modal with login form
+        loginBtn.addEventListener('click', function() {
+            openModal('login');
+        });
+        
+        // Open modal with register form
+        registerBtn.addEventListener('click', function() {
+            openModal('register');
+        });
+        
+        // Hero CTA button opens register form
+        heroCtaBtn.addEventListener('click', function() {
+            openModal('register');
+        });
+        
+        // Close modal
+        modalClose.addEventListener('click', closeModal);
+        
+        // Also close when clicking outside the modal content
+        authModal.addEventListener('click', function(e) {
+            if (e.target === authModal) {
+                closeModal();
+            }
+        });
+        
+        // Toggle password visibility
+        loginPasswordToggle.addEventListener('click', function() {
+            togglePasswordVisibility(loginPassword, this);
+        });
+        
+        registerPasswordToggle.addEventListener('click', function() {
+            togglePasswordVisibility(registerPassword, this);
+        });
+        
+        confirmPasswordToggle.addEventListener('click', function() {
+            togglePasswordVisibility(confirmPassword, this);
+        });
+        
+        function togglePasswordVisibility(inputElement, toggleElement) {
+            if (inputElement.type === 'password') {
+                inputElement.type = 'text';
+                toggleElement.textContent = 'Hide';
+            } else {
+                inputElement.type = 'password';
+                toggleElement.textContent = 'Show';
+            }
+        }
+        
+        // Form toggle functions
+        function showRegisterFormFunc() {
+            loginForm.classList.remove('active-form');
+            registerForm.classList.add('active-form');
+            formTitle.textContent = 'Create an Account';
+            formSubtitle.textContent = 'Sign up to start using QuickPrep.ai';
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+        
+        function showLoginFormFunc() {
+            registerForm.classList.remove('active-form');
+            loginForm.classList.add('active-form');
+            formTitle.textContent = 'Welcome Back';
+            formSubtitle.textContent = 'Please enter your credentials to login';
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+        
+        // Event listeners for form toggle
+        showRegisterForm.addEventListener('click', function(e) {
+            e.preventDefault();
+            showRegisterFormFunc();
+            registerUsername.focus();
+        });
+        
+        showLoginForm.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLoginFormFunc();
+            loginUsername.focus();
+        });
+        
+        // Login form submission - FIXED to match Flask routes
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Hide any previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Disable button and show spinner
+            loginButton.classList.add('loading');
+            loginSpinner.style.display = 'inline-block';
+            
+            // Get form values
+            const username = loginUsername.value.trim();
+            const password = loginPassword.value;
+            
+            // Validate inputs
+            if (!username || !password) {
+                errorMessage.textContent = 'Please enter both username and password.';
+                errorMessage.style.display = 'block';
+                loginButton.classList.remove('loading');
+                loginSpinner.style.display = 'none';
+                return;
+            }
+            
+            // Call API endpoint - FIXED URL to match Flask route
+            fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return res.json();
+            })
+            .then(data => {
+                // Simulate network delay for better UX
+                setTimeout(() => {
+                    if (data.success) {
+                        // Redirect to dashboard or reload page
+                        window.location.href = data.redirect || '/dashboard';
+                    } else {
+                        // Show error message and shake form
+                        errorMessage.textContent = data.message || 'Invalid username or password. Please try again.';
+                        errorMessage.style.display = 'block';
+                        document.querySelector('.auth-container').classList.add('shake');
+                        
+                        // Remove shake class after animation completes
+                        setTimeout(() => {
+                            document.querySelector('.auth-container').classList.remove('shake');
+                        }, 600);
+                        
+                        // Reset password field
+                        loginPassword.value = '';
+                        loginPassword.focus();
+                    }
+                    
+                    // Re-enable button and hide spinner
+                    loginButton.classList.remove('loading');
+                    loginSpinner.style.display = 'none';
+                }, 800);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorMessage.textContent = 'A network error occurred. Please try again later.';
+                errorMessage.style.display = 'block';
+                
+                // Re-enable button and hide spinner
+                loginButton.classList.remove('loading');
+                loginSpinner.style.display = 'none';
+            });
+        });
+        
+        // Register form submission - FIXED to match Flask route
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Hide any previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Get form values
+            const username = registerUsername.value.trim();
+            const password = registerPassword.value;
+            const confirmPwd = confirmPassword.value;
+            
+            // Basic validation
+            if (!username) {
+                errorMessage.textContent = 'Please enter a username.';
+                errorMessage.style.display = 'block';
+                registerUsername.focus();
+                return;
+            }
+            
+            // Validate password length
+            if (password.length < 8) {
+                errorMessage.textContent = 'Password must be at least 8 characters long.';
+                errorMessage.style.display = 'block';
+                registerPassword.focus();
+                return;
+            }
+            
+            // Validate passwords match
+            if (password !== confirmPwd) {
+                errorMessage.textContent = 'Passwords do not match. Please try again.';
+                errorMessage.style.display = 'block';
+                confirmPassword.value = '';
+                confirmPassword.focus();
+                return;
+            }
+            
+            // Disable button and show spinner
+            registerButton.classList.add('loading');
+            registerSpinner.style.display = 'inline-block';
+            
+            // Call API endpoint - FIXED URL to match Flask route
+            fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(data => {
+                        throw new Error(data.message || 'Registration failed');
+                    });
+                }
+                return res.json();
+            })
+            .then(data => {
+                // Simulate network delay for better UX
+                setTimeout(() => {
+                    if (data.success) {
+                        // Clear the form
+                        registerForm.reset();
+                        
+                        // Show success message
+                        successMessage.textContent = data.message || 'Account created successfully! You can now login.';
+                        successMessage.style.display = 'block';
+                        
+                        // Redirect to dashboard if a redirect URL is provided
+                        if (data.redirect) {
+                            setTimeout(() => {
+                                window.location.href = data.redirect;
+                            }, 1500);
+                        } else {
+                            // Otherwise switch to login form after a brief delay
+                            setTimeout(() => {
+                                showLoginFormFunc();
+                                loginUsername.value = username; // Pre-fill username for convenience
+                                loginUsername.focus();
+                            }, 2000);
+                        }
+                    } else {
+                        // Show error message
+                        errorMessage.textContent = data.message || 'Registration failed. Please try a different username.';
+                        errorMessage.style.display = 'block';
+                        document.querySelector('.auth-container').classList.add('shake');
+                        
+                        // Remove shake class after animation completes
+                        setTimeout(() => {
+                            document.querySelector('.auth-container').classList.remove('shake');
+                        }, 600);
+                    }
+                    
+                    // Re-enable button and hide spinner
+                    registerButton.classList.remove('loading');
+                    registerSpinner.style.display = 'none';
+                }, 800);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorMessage.textContent = error.message || 'A network error occurred. Please try again later.';
+                errorMessage.style.display = 'block';
+                
+                // Re-enable button and hide spinner
+                registerButton.classList.remove('loading');
+                registerSpinner.style.display = 'none';
+            });
+        });
+        
+        // Handle Escape key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && authModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+        
+        
+    });
+</script>
+
+</body>
+</html>

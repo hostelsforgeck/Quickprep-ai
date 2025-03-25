@@ -1,0 +1,114 @@
+{
+    "questions": [
+        {
+            "question": "In a perfectly competitive market, how many buyers and sellers are there?",
+            "answers": {
+                "a": "A few",
+                "b": "Many",
+                "c": "One",
+                "d": "None"
+            },
+            "correct": "b",
+            "difficulty": "Low"
+        },
+        {
+            "question": "What is the main characteristic of a monopoly?",
+            "answers": {
+                "a": "Many buyers and sellers",
+                "b": "One buyer and one seller",
+                "c": "One seller and many buyers",
+                "d": "One seller and one buyer"
+            },
+            "correct": "c",
+            "difficulty": "Low"
+        },
+        {
+            "question": "In a monopolistically competitive market, what is the main goal of firms?",
+            "answers": {
+                "a": "To minimize profits",
+                "b": "To maximize profits",
+                "c": "To minimize costs",
+                "d": "To maximize costs"
+            },
+            "correct": "b",
+            "difficulty": "Low"
+        },
+        {
+            "question": "What is the main difference between perfect competition and monopolistic competition?",
+            "answers": {
+                "a": "Number of buyers and sellers",
+                "b": "Level of differentiation among products",
+                "c": "Level of entry and exit barriers",
+                "d": "All of the above"
+            },
+            "correct": "b",
+            "difficulty": "Low"
+        },
+        {
+            "question": "In an oligopoly, what is the main form of competition among firms?",
+            "answers": {
+                "a": "Price competition",
+                "b": "Non-price competition",
+                "c": "Perfect competition",
+                "d": "Monopolistic competition"
+            },
+            "correct": "b",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "What is the kinked demand curve theory in oligopoly?",
+            "answers": {
+                "a": "Firms will always lower their prices to gain market share",
+                "b": "Firms will always raise their prices to maximize profits",
+                "c": "Firms will maintain their prices due to fear of retaliation from competitors",
+                "d": "Firms will always enter into cartel agreements"
+            },
+            "correct": "c",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "What is the main objective of the Competition Commission of India?",
+            "answers": {
+                "a": "To promote monopolies",
+                "b": "To regulate competition and protect consumer interests",
+                "c": "To encourage cartel agreements",
+                "d": "To promote perfect competition"
+            },
+            "correct": "b",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "What is predatory pricing?",
+            "answers": {
+                "a": "A pricing strategy where a firm sets a high price to maximize profits",
+                "b": "A pricing strategy where a firm sets a low price to drive out competitors",
+                "c": "A pricing strategy where a firm sets a price equal to its marginal cost",
+                "d": "A pricing strategy where a firm sets a price equal to its average revenue"
+            },
+            "correct": "b",
+            "difficulty": "High"
+        },
+        {
+            "question": "What is the difference between penetration pricing and skimming pricing?",
+            "answers": {
+                "a": "Penetration pricing is used to maximize profits, while skimming pricing is used to minimize costs",
+                "b": "Penetration pricing is used to enter a new market with a low price, while skimming pricing is used to maximize profits with a high price",
+                "c": "Penetration pricing is used to maximize costs, while skimming pricing is used to minimize profits",
+                "d": "Penetration pricing is used to minimize profits, while skimming pricing is used to maximize costs"
+            },
+            "correct": "b",
+            "difficulty": "High"
+        },
+        {
+            "question": "What is the main characteristic of a natural monopoly?",
+            "answers": {
+                "a": "High entry barriers and high fixed costs",
+                "b": "Low entry barriers and low fixed costs",
+                "c": "A single firm that produces a unique product",
+                "d": "A market with many buyers and sellers"
+            },
+            "correct": "a",
+            "difficulty": "High"
+        }
+    ]
+}

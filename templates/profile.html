@@ -1,0 +1,266 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Quiz Attempts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            padding: 20px;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #4a6cf7;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .quiz-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quiz-title i {
+            color: #4a6cf7;
+            margin-right: 8px;
+        }
+        
+        .attempt-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 15px 0 0 0;
+        }
+        
+        .attempt-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            background-color: #f8fafc;
+            transition: all 0.2s ease;
+        }
+        
+        .attempt-item:hover {
+            background-color: #f1f5f9;
+            transform: translateX(3px);
+        }
+        
+        .attempt-number {
+            font-weight: 600;
+            color: #4a6cf7;
+        }
+        
+        .attempt-score {
+            display: flex;
+            align-items: center;
+        }
+        
+        .score-badge {
+            background-color: #4a6cf7;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .score-badge.low {
+            background-color: #ef4444;
+        }
+        
+        .score-badge.medium {
+            background-color: #f59e0b;
+        }
+        
+        .score-badge.high {
+            background-color: #10b981;
+        }
+        
+        .percentage {
+            margin-left: 10px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            color: #4a6cf7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-button i {
+            margin-right: 5px;
+        }
+        
+        .summary {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #e2e8f0;
+        }
+        
+        .summary-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .summary-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+        
+        .summary-value {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+        
+        .no-quizzes {
+            text-align: center;
+            padding: 50px 20px;
+            color: #64748b;
+        }
+        
+        .no-quizzes i {
+            font-size: 3rem;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .attempt-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .attempt-score {
+                margin-top: 8px;
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Quiz Attempts</h1>
+        
+        {% if progress %}
+            {% for quiz_name, quiz_attempts in progress.items() %}
+                {% if quiz_attempts|length > 0 %}
+                    <div class="quiz-section">
+                        <h2 class="quiz-title">
+                            <i class="fas fa-file-alt"></i>
+                            {{ quiz_name.replace(".pdf.json", "") }}
+                        </h2>
+                        
+                        <ul class="attempt-list">
+                            {% for attempt in quiz_attempts %}
+                                {% if attempt.total > 0 %}
+                                    {% set percentage = (attempt.score / attempt.total * 100) | round %}
+                                {% else %}
+                                    {% set percentage = 0 %}
+                                {% endif %}
+                                
+                                {% set score_class = "low" if percentage < 40 else ("medium" if percentage < 70 else "high") %}
+                                
+                                <li class="attempt-item">
+                                    <div class="attempt-number">
+                                        Attempt {{ loop.index }}
+                                    </div>
+                                    <div class="attempt-score">
+                                        <div class="score-badge {{ score_class }}">
+                                            {{ attempt.score }}/{{ attempt.total }}
+                                        </div>
+                                        <div class="percentage">
+                                            {{ percentage }}%
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        
+                        <div class="summary">
+                            <div class="summary-item">
+                                <div class="summary-label">Total Attempts</div>
+                                <div class="summary-value">{{ quiz_attempts|length }}</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Best Score</div>
+                                {% set best = namespace(score=0, total=1, ratio=0) %}
+                                {% for attempt in quiz_attempts %}
+                                    {% set current_ratio = attempt.score / attempt.total if attempt.total > 0 else 0 %}
+                                    {% if current_ratio > best.ratio %}
+                                        {% set best.score = attempt.score %}
+                                        {% set best.total = attempt.total %}
+                                        {% set best.ratio = current_ratio %}
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="summary-value">{{ best.score }}/{{ best.total }}</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Average Score</div>
+                                {% set total_score = namespace(value=0) %}
+                                {% set total_possible = namespace(value=0) %}
+                                {% for attempt in quiz_attempts %}
+                                    {% set total_score.value = total_score.value + attempt.score %}
+                                    {% set total_possible.value = total_possible.value + attempt.total %}
+                                {% endfor %}
+                                <div class="summary-value">
+                                    {% if total_possible.value > 0 %}
+                                        {{ ((total_score.value / total_possible.value) * 100) | round }}%
+                                    {% else %}
+                                        0%
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="no-quizzes">
+                <i class="fas fa-clipboard-list"></i>
+                <p>You haven't taken any quizzes yet.</p>
+            </div>
+        {% endif %}
+        
+        <a href="{{ url_for('user_dashboard') }}" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</body>
+</html>

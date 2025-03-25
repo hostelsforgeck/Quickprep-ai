@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #4a6cf7;
+            --accent: #ee5e5e;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        .navbar {
+            background-color: var(--card);
+            box-shadow: var(--shadow);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .logout-btn {
+            background-color: white;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0e7ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .glowing-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+        .difficulty-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .question-container {
+            scroll-margin-top: 20px;
+        }
+        .error-highlight {
+            border: 2px solid #ef4444;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .results-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .results-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .results-container {
+            background-color: white;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .results-overlay.active .results-container {
+            transform: translateY(0);
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="navbar">
+        <div class="logo">QuizMaster</div>
+        <div class="nav-links">
+        </div>
+        <div class="user-menu">
+            <div class="user-avatar">
+                {{ session['user'][0] }}
+            </div>
+            <a href="{{ url_for('user_dashboard') }}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Dashboard
+            </a>
+        </div>
+    </nav>
+
+    <div class="flex justify-center items-center min-h-screen py-8">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
+            <h1 class="text-2xl font-bold text-center mb-6">{{ quiz["title"] }}</h1>
+
+            <form id="quiz-form" class="space-y-6">
+                {% for question in quiz["questions"] %}
+                <div id="question-{{ loop.index }}" class="p-4 border rounded-lg bg-gray-50 question-container">
+                    <div class="difficulty-wrapper">
+                        {% if question["difficulty"] == "Low" %}
+                            <span class="glowing-circle bg-green-500" style="box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);"></span>
+                        {% elif question["difficulty"] == "Medium" %}
+                            <span class="glowing-circle bg-orange-500" style="box-shadow: 0 0 8px rgba(249, 115, 22, 0.8);"></span>
+                        {% elif question["difficulty"] == "High" %}
+                            <span class="glowing-circle bg-red-500" style="box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);"></span>
+                        {% endif %}
+                        <p class="font-semibold">{{ question["question"] }}</p>
+                    </div>
+                    <div class="answer-options mt-2" data-question-id="{{ loop.index }}">
+                        <!-- Answer options will be added dynamically via JavaScript -->
+                    </div>
+                </div>
+                {% endfor %}
+                <button type="submit" id="submit-button" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Overlay -->
+    <div id="results-overlay" class="results-overlay">
+        <div class="results-container p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-800">Quiz Results</h2>
+                <button id="close-results" class="text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="score-display" class="mb-6 text-center">
+                <!-- Score will be inserted here -->
+            </div>
+            
+            <div id="results-content" class="space-y-4">
+                <!-- Results content will be inserted here -->
+            </div>
+            
+            <div class="mt-6 flex justify-center">
+                <button id="retake-quiz" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition mr-3">
+                    Retake Quiz
+                </button>
+                <button id="see-answers" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition">
+                    Review Answers
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        
+        // Initialize quiz and render options
+        function initializeQuiz() {
+            // Store quiz data to use for reshuffling later
+            window.quizData = {{ quiz|tojson }};
+            renderQuizOptions();
+        }
+        
+        // Render quiz options in random order
+        function renderQuizOptions() {
+            const questions = window.quizData.questions;
+            
+            questions.forEach((question, index) => {
+                const questionContainer = document.querySelector(`[data-question-id="${index + 1}"]`);
+                if (!questionContainer) return;
+                
+                // Clear existing options
+                questionContainer.innerHTML = '';
+                
+                // Get answer keys and options as array of [key, value] pairs
+                const answerEntries = Object.entries(question.answers);
+                
+                // Shuffle the array of answer entries
+                const shuffledAnswers = shuffleArray([...answerEntries]);
+                
+                // Create and append radio inputs for each answer option
+                shuffledAnswers.forEach(([key, option]) => {
+                    const label = document.createElement('label');
+                    label.className = 'flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-gray-200 transition';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = question.question;
+                    input.value = key;
+                    input.className = 'w-4 h-4';
+                    
+                    const span = document.createElement('span');
+                    span.className = 'text-gray-800';
+                    span.textContent = option;
+                    
+                    label.appendChild(input);
+                    label.appendChild(span);
+                    questionContainer.appendChild(label);
+                });
+            });
+        }
+        
+        const form = document.getElementById("quiz-form");
+        const submitButton = document.getElementById("submit-button");
+        const resultsOverlay = document.getElementById("results-overlay");
+        const closeResults = document.getElementById("close-results");
+        const retakeQuiz = document.getElementById("retake-quiz");
+        const seeAnswers = document.getElementById("see-answers");
+        
+        // Show results overlay
+        function showResults() {
+            resultsOverlay.classList.add("active");
+            document.body.style.overflow = "hidden"; // Prevent scrolling behind overlay
+        }
+
+        // Hide results overlay
+        function hideResults() {
+            resultsOverlay.classList.remove("active");
+            document.body.style.overflow = ""; // Restore scrolling
+        }
+
+        // Create confetti effect for high scores
+        function createConfetti(score, total) {
+            if (score / total < 0.7) return; // Only show confetti for scores >= 70%
+            
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            const confettiCount = 100;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                
+                document.body.appendChild(confetti);
+                
+                // Animate confetti
+                const animation = confetti.animate(
+                    [
+                        { 
+                            transform: 'translate(0, 0) rotate(0deg)', 
+                            opacity: 1 
+                        },
+                        { 
+                            transform: `translate(${-100 + Math.random() * 200}px, ${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, 
+                            opacity: 0 
+                        }
+                    ], 
+                    {
+                        duration: 1500 + Math.random() * 3000,
+                        easing: 'cubic-bezier(0, .9, .57, 1)',
+                        delay: Math.random() * 1500
+                    }
+                );
+                
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+
+        // Close results when close button is clicked
+        closeResults.addEventListener("click", hideResults);
+
+        // Close results when clicking outside of results container
+        resultsOverlay.addEventListener("click", function(event) {
+            if (event.target === resultsOverlay) {
+                hideResults();
+            }
+        });
+
+        // Retake quiz button functionality
+        retakeQuiz.addEventListener("click", function() {
+            hideResults();
+            // Reset the form
+            form.reset();
+            // Remove any error highlights
+            document.querySelectorAll('.error-highlight').forEach(el => {
+                el.classList.remove('error-highlight');
+            });
+            // Reshuffle options
+            renderQuizOptions();
+            window.scrollTo(0, 0);
+        });
+
+        // Review answers button functionality
+        seeAnswers.addEventListener("click", function() {
+            hideResults();
+            // Scroll to first question
+            const firstQuestion = document.querySelector('.question-container');
+            if (firstQuestion) {
+                firstQuestion.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Get all question containers
+            const questionContainers = document.querySelectorAll('.question-container');
+            
+            // Reset any previous error highlights
+            questionContainers.forEach(container => {
+                container.classList.remove('error-highlight');
+            });
+            
+            // Check if all questions are answered
+            const questionNames = new Set();
+            const answeredQuestions = new Set();
+            
+            Array.from(form.elements)
+                .filter(el => el.type === "radio")
+                .forEach(input => {
+                    questionNames.add(input.name);
+                    if (input.checked) {
+                        answeredQuestions.add(input.name);
+                    }
+                });
+            
+            // If not all questions are answered
+            if (questionNames.size !== answeredQuestions.size) {
+                // Find first unanswered question
+                let firstUnansweredContainer = null;
+                
+                questionContainers.forEach(container => {
+                    const radioInputs = container.querySelectorAll('input[type="radio"]');
+                    if (radioInputs.length > 0) {
+                        const questionName = radioInputs[0].name;
+                        if (!answeredQuestions.has(questionName)) {
+                            if (!firstUnansweredContainer) {
+                                firstUnansweredContainer = container;
+                            }
+                            container.classList.add('error-highlight');
+                        }
+                    }
+                });
+                
+                // Scroll to the first unanswered question
+                if (firstUnansweredContainer) {
+                    firstUnansweredContainer.scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                return false;
+            }
+            
+            // If all questions are answered, proceed with submission
+            let answers = {};
+            let formData = new FormData(this);
+            formData.forEach((value, key) => {
+                answers[key] = value;
+            });
+
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Submitting...
+            `;
+
+            fetch("{{ url_for('submit_quiz') }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ quiz_file: "{{ quiz_file }}", answers: answers })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.innerHTML = "Submit";
+                
+                // Populate results overlay
+                const scoreDisplay = document.getElementById("score-display");
+                const resultsContent = document.getElementById("results-content");
+                
+                // Calculate percentage
+                const percentage = (data.score / data.total) * 100;
+                let scoreClass = 'text-yellow-600';
+                let emoji = '😐';
+                
+                if (percentage >= 80) {
+                    scoreClass = 'text-green-600';
+                    emoji = '🎉';
+                } else if (percentage <= 40) {
+                    scoreClass = 'text-red-600';
+                    emoji = '😢';
+                }
+                
+                // Set score display
+                scoreDisplay.innerHTML = `
+                    <div class="text-6xl ${scoreClass} font-bold">${data.score}/${data.total}</div>
+                    <div class="text-xl mt-2">You scored ${percentage.toFixed(0)}% ${emoji}</div>
+                `;
+                
+                // Display incorrect and correct answers
+                resultsContent.innerHTML = '';
+                
+                if (data.incorrect_answers && data.incorrect_answers.length > 0) {
+                    // Show incorrect answers first
+                    const incorrectSection = document.createElement('div');
+                    incorrectSection.innerHTML = `
+                        <h3 class="text-lg font-semibold mt-4 text-red-600">Incorrect Answers (${data.incorrect_answers.length})</h3>
+                        <div class="space-y-3 mt-2"></div>
+                    `;
+                    
+                    const incorrectList = incorrectSection.querySelector('div');
+                    
+                    data.incorrect_answers.forEach(item => {
+                        const answerEl = document.createElement('div');
+                        answerEl.className = 'p-3 bg-red-50 border border-red-200 rounded-lg';
+                        answerEl.innerHTML = `
+                            <p class="font-medium">${item.question}</p>
+                            <p class="text-red-600 mt-1">Your answer: ${item.user_answer}</p>
+                            <p class="text-green-600 mt-1">Correct answer: ${item.correct_answer}</p>
+                        `;
+                        incorrectList.appendChild(answerEl);
+                    });
+                    
+                    resultsContent.appendChild(incorrectSection);
+                }
+                
+                // Calculate correct answers
+                const correctCount = data.total - (data.incorrect_answers ? data.incorrect_answers.length : 0);
+                
+                if (correctCount > 0) {
+                    const correctHeader = document.createElement('h3');
+                    correctHeader.className = 'text-lg font-semibold mt-4 text-green-600';
+                    correctHeader.textContent = `Correct Answers (${correctCount})`;
+                    resultsContent.appendChild(correctHeader);
+                }
+                
+                // Show the results overlay
+                showResults();
+                
+                // Trigger confetti for high scores
+                createConfetti(data.score, data.total);
+            })
+            .catch(error => {
+                console.error("Error submitting quiz:", error);
+                submitButton.disabled = false;
+                submitButton.innerHTML = "Submit";
+                alert("There was an error submitting your quiz. Please try again.");
+            });
+        });
+        
+        // Initialize quiz when the page loads
+        document.addEventListener('DOMContentLoaded', initializeQuiz);
+    </script>
+</body>
+</html>

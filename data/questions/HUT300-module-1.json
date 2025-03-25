@@ -1,0 +1,114 @@
+{
+    "questions": [
+        {
+            "question": "What is the primary problem faced by societies in terms of production?",
+            "answers": {
+                "a": "How to distribute income",
+                "b": "What goods and services to produce and in what quantities",
+                "c": "How to reduce scarcity",
+                "d": "How to increase consumption"
+            },
+            "correct": "b",
+            "difficulty": "Low"
+        },
+        {
+            "question": "If a consumer buys 10 units of a product at $10 per unit and 12 units at $9 per unit, calculate the price elasticity of demand.",
+            "answers": {
+                "a": "0.5",
+                "b": "1.5",
+                "c": "2",
+                "d": "0.25"
+            },
+            "correct": "b",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "A firm operates on a production possibility curve. If it moves from point A to point B on the curve, what happens to the production of the two goods?",
+            "answers": {
+                "a": "Production of both goods increases",
+                "b": "Production of one good increases and the other decreases",
+                "c": "Production of both goods decreases",
+                "d": "Production of one good increases and the other remains constant"
+            },
+            "correct": "b",
+            "difficulty": "Low"
+        },
+        {
+            "question": "What is the concept of diminishing marginal utility?",
+            "answers": {
+                "a": "The additional utility from consuming a good decreases as consumption increases",
+                "b": "The additional utility from consuming a good increases as consumption increases",
+                "c": "The total utility from consuming a good remains constant",
+                "d": "The total utility from consuming a good decreases as consumption increases"
+            },
+            "correct": "a",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "A consumer has a monthly income of $1000. He spends $500 on food and $300 on clothing. If the price of food increases by 20%, what happens to his consumption of food?",
+            "answers": {
+                "a": "His consumption of food increases",
+                "b": "His consumption of food decreases",
+                "c": "His consumption of food remains constant",
+                "d": "Not enough information to determine"
+            },
+            "correct": "b",
+            "difficulty": "High"
+        },
+        {
+            "question": "What is the concept of consumer surplus?",
+            "answers": {
+                "a": "The additional benefit received by a consumer from buying a good at a price lower than their willingness to pay",
+                "b": "The additional cost incurred by a consumer from buying a good at a price higher than their willingness to pay",
+                "c": "The total benefit received by a consumer from buying a good",
+                "d": "The total cost incurred by a consumer from buying a good"
+            },
+            "correct": "a",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "If the demand for a product is elastic, what happens to the quantity demanded when the price increases by 10%?",
+            "answers": {
+                "a": "The quantity demanded decreases by less than 10%",
+                "b": "The quantity demanded decreases by more than 10%",
+                "c": "The quantity demanded increases by 10%",
+                "d": "The quantity demanded remains constant"
+            },
+            "correct": "b",
+            "difficulty": "High"
+        },
+        {
+            "question": "What is the concept of opportunity cost?",
+            "answers": {
+                "a": "The value of the next best alternative that is given up when a choice is made",
+                "b": "The value of the chosen option",
+                "c": "The cost of producing a good",
+                "d": "The benefit received from consuming a good"
+            },
+            "correct": "a",
+            "difficulty": "Low"
+        },
+        {
+            "question": "A firm produces two goods, X and Y. The production possibility curve shows that if the firm produces 10 units of X, it can produce 20 units of Y. If it produces 15 units of X, it can produce 15 units of Y. What is the opportunity cost of producing 5 more units of X?",
+            "answers": {
+                "a": "5 units of Y",
+                "b": "10 units of Y",
+                "c": "15 units of Y",
+                "d": "20 units of Y"
+            },
+            "correct": "a",
+            "difficulty": "High"
+        },
+        {
+            "question": "What is the concept of deadweight loss?",
+            "answers": {
+                "a": "The loss of economic efficiency due to a tax or subsidy",
+                "b": "The gain of economic efficiency due to a tax or subsidy",
+                "c": "The loss of economic efficiency due to a change in consumer preferences",
+                "d": "The gain of economic efficiency due to a change in consumer preferences"
+            },
+            "correct": "a",
+            "difficulty": "Medium"
+        }
+    ]
+}

@@ -1,0 +1,114 @@
+{
+    "questions": [
+        {
+            "question": "What is a potential negative effect of excessive social media use on mental health?",
+            "answers": {
+                "a": "Increased self-esteem",
+                "b": "Improved anxiety",
+                "c": "Low self-esteem",
+                "d": "Enhanced emotional well-being"
+            },
+            "correct": "c",
+            "difficulty": "Low"
+        },
+        {
+            "question": "Which social media platform has fostered communities for discussing mental health?",
+            "answers": {
+                "a": "Facebook",
+                "b": "Twitter",
+                "c": "Instagram",
+                "d": "LinkedIn"
+            },
+            "correct": "b",
+            "difficulty": "Low"
+        },
+        {
+            "question": "What is a benefit of using renewable energy sources?",
+            "answers": {
+                "a": "Increased greenhouse gas emissions",
+                "b": "Dependence on finite resources",
+                "c": "Reducing greenhouse gas emissions",
+                "d": "Higher energy costs"
+            },
+            "correct": "c",
+            "difficulty": "Low"
+        },
+        {
+            "question": "Why is digital literacy important for social media use?",
+            "answers": {
+                "a": "To increase screen time",
+                "b": "To decrease online interactions",
+                "c": "To balance online and offline interactions",
+                "d": "To ignore mental health resources"
+            },
+            "correct": "c",
+            "difficulty": "Low"
+        },
+        {
+            "question": "What is a challenge faced by renewable energy sources?",
+            "answers": {
+                "a": "Storage limitations and weather dependence",
+                "b": "High energy costs and limited adoption",
+                "c": "Increased greenhouse gas emissions and finite resources",
+                "d": "Improved energy reliability and efficiency"
+            },
+            "correct": "a",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "How can social media be used mindfully to support mental health?",
+            "answers": {
+                "a": "By comparing lives to curated online content",
+                "b": "By accessing mental health resources and support groups",
+                "c": "By engaging in cyberbullying and online harassment",
+                "d": "By ignoring mental health awareness campaigns"
+            },
+            "correct": "b",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "What is being developed to enhance energy reliability in renewable energy systems?",
+            "answers": {
+                "a": "Fossil fuel-based power plants",
+                "b": "Battery storage systems and smart grids",
+                "c": "Nuclear power plants and coal-fired generators",
+                "d": "Solar panels and wind turbines only"
+            },
+            "correct": "b",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "What is the potential outcome of widespread adoption of renewable energy sources?",
+            "answers": {
+                "a": "Increased dependence on finite resources and greenhouse gas emissions",
+                "b": "A cleaner and more sustainable planet",
+                "c": "Improved energy efficiency but decreased energy reliability",
+                "d": "Higher energy costs and limited access to renewable energy"
+            },
+            "correct": "b",
+            "difficulty": "High"
+        },
+        {
+            "question": "How do individual usage patterns impact the effect of social media on mental health?",
+            "answers": {
+                "a": "Excessive use always leads to negative effects",
+                "b": "Moderate use always leads to positive effects",
+                "c": "Individual usage patterns and digital literacy determine the impact",
+                "d": "Social media use has no impact on mental health"
+            },
+            "correct": "c",
+            "difficulty": "High"
+        },
+        {
+            "question": "What is the role of governments and organizations in promoting renewable energy?",
+            "answers": {
+                "a": "Investing in fossil fuel-based infrastructure",
+                "b": "Ignoring the challenges of climate change",
+                "c": "Investing heavily in clean energy infrastructure",
+                "d": "Decreasing funding for renewable energy research"
+            },
+            "correct": "c",
+            "difficulty": "High"
+        }
+    ]
+}

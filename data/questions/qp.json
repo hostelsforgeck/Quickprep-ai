@@ -1,0 +1,114 @@
+{
+    "questions": [
+        {
+            "question": "What are the central problems of an economy?",
+            "answers": {
+                "a": "How to produce, what to produce, and for whom to produce",
+                "b": "How to consume, what to consume, and when to consume",
+                "c": "How to save, what to save, and when to saved",
+                "d": "How to invest, what to invest, and when to invest"
+            },
+            "correct": "a",
+            "difficulty": "Low"
+        },
+        {
+            "question": "Distinguish between explicit and implicit cost.",
+            "answers": {
+                "a": "Explicit cost is the cost of production, and implicit cost is the cost of materials",
+                "b": "Explicit cost is the cost of materials, and implicit cost is the cost of production",
+                "c": "Explicit cost is the cost of production, and implicit cost is the opportunity cost",
+                "d": "Explicit cost is the opportunity cost, and implicit cost is the cost of production"
+            },
+            "correct": "c",
+            "difficulty": "Low"
+        },
+        {
+            "question": "What is shut down point?",
+            "answers": {
+                "a": "The point at which the firm stops producing due to high costs",
+                "b": "The point at which the firm starts producing due to low costs",
+                "c": "The point at which the firm's revenue equals its variable costs",
+                "d": "The point at which the firm's revenue equals its fixed costs"
+            },
+            "correct": "c",
+            "difficulty": "Low"
+        },
+        {
+            "question": "Explain the conditions for profit maximization of a firm.",
+            "answers": {
+                "a": "MC = MR and MC is increasing",
+                "b": "MC = MR and MC is decreasing",
+                "c": "MC = MR and MC is constant",
+                "d": "MC = MR and MC is undefined"
+            },
+            "correct": "a",
+            "difficulty": "Low"
+        },
+        {
+            "question": "Illustrate why the demand curve in perfect competition is perfectly elastic.",
+            "answers": {
+                "a": "Because the firm is a price taker",
+                "b": "Because the firm is a price maker",
+                "c": "Because the firm has a downward sloping demand curve",
+                "d": "Because the firm has an upward sloping demand curve"
+            },
+            "correct": "a",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "Describe the fiscal policy measures to control an inflationary situation.",
+            "answers": {
+                "a": "Increase government spending and cut taxes",
+                "b": "Decrease government spending and increase taxes",
+                "c": "Increase government spending and increase taxes",
+                "d": "Decrease government spending and cut taxes"
+            },
+            "correct": "b",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "What are government securities?",
+            "answers": {
+                "a": "Stocks and bonds issued by private companies",
+                "b": "Bonds and bills issued by the government",
+                "c": "Commodities and currencies traded on the market",
+                "d": "Derivatives and futures contracts"
+            },
+            "correct": "b",
+            "difficulty": "Medium"
+        },
+        {
+            "question": "Examine the advantages of protectionism in international trade.",
+            "answers": {
+                "a": "Increased competition, lower prices, and higher quality",
+                "b": "Reduced competition, higher prices, and lower quality",
+                "c": "Increased employment, higher wages, and improved trade balance",
+                "d": "Reduced employment, lower wages, and worsened trade balance"
+            },
+            "correct": "c",
+            "difficulty": "High"
+        },
+        {
+            "question": "Differentiate between devaluation and depreciation.",
+            "answers": {
+                "a": "Devaluation is a decrease in the value of a currency, and depreciation is an increase",
+                "b": "Devaluation is an increase in the value of a currency, and depreciation is a decrease",
+                "c": "Devaluation is a decrease in the value of a currency due to government action, and depreciation is a decrease due to market forces",
+                "d": "Devaluation is an increase in the value of a currency due to government action, and depreciation is an increase due to market forces"
+            },
+            "correct": "c",
+            "difficulty": "High"
+        },
+        {
+            "question": "Explain the concept of opportunity cost and its linkage with PPC.",
+            "answers": {
+                "a": "Opportunity cost is the cost of choosing one option over another, and PPC shows the trade-offs between different options",
+                "b": "Opportunity cost is the benefit of choosing one option over another, and PPC shows the benefits of different options",
+                "c": "Opportunity cost is the cost of producing one good, and PPC shows the production possibilities of different goods",
+                "d": "Opportunity cost is the benefit of producing one good, and PPC shows the benefits of producing different goods"
+            },
+            "correct": "a",
+            "difficulty": "High"
+        }
+    ]
+}
