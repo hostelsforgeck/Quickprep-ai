@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, session, redirect, u
 import os
 import json
 import fitz  # PyMuPDF for PDF extraction
-import faiss
+
 import numpy as np
 import requests
 import logging
@@ -94,13 +94,7 @@ def extract_text_from_pdf(pdf_path):
     logging.debug(f"Extracted text from {pdf_path}: {text[:500]}")  # Log first 500 chars for debugging
     return text
 
-# Store embeddings using FAISS
-def create_faiss_index(texts):
-    dimension = 768  # Assume embedding size (adjust as needed)
-    index = faiss.IndexFlatL2(dimension)
-    vectors = np.random.rand(len(texts), dimension).astype('float32')  # Replace with real embeddings
-    index.add(vectors)
-    faiss.write_index(index, os.path.join(DATA_FOLDER, 'vector_index.faiss'))
+
 def generate_mcq(text):
     logging.debug(f"Sending text to LLM: {text[:500]}")  # Log first 500 chars for debugging
     headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
@@ -268,7 +262,7 @@ def upload_file():
     if not text.strip():
         logging.error("Extracted text is empty. Check PDF content.")
         return jsonify({'error': 'Extracted text is empty'})
-    create_faiss_index([text])
+    
     mcqs = generate_mcq(text)
     question_filepath = os.path.join(QUESTION_FOLDER, f"{os.path.splitext(filename)[0]}.json")
 
