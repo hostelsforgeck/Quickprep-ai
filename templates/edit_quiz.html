@@ -27,6 +27,11 @@
         <h2>Edit Quiz: <span id="quiz-title"></span></h2>
         
         <form id="edit-quiz-form">
+            <div class="form-group">
+                <label for="portion-name">Portion Name:</label>
+                <input type="text" id="portion-name" class="form-control" required>
+            </div>
+            
             <div id="questions-container">
                 <!-- Questions will be dynamically added here -->
             </div>
@@ -105,6 +110,11 @@
             
             // Load quiz data
             $.getJSON(`/get_quiz/${quizFile}`, function(quizData) {
+                // Set portion name
+                if (quizData.questions && quizData.questions.length > 0) {
+                    $('#portion-name').val(quizData.questions[0].portion_name || '');
+                }
+                
                 // Populate questions
                 if (quizData.questions && Array.isArray(quizData.questions)) {
                     quizData.questions.forEach(question => {
@@ -116,6 +126,7 @@
             // Add new question button
             $('#add-question-btn').click(function() {
                 addQuestionCard({
+                    portion_name: $('#portion-name').val(),
                     question: '',
                     answers: { a: '', b: '', c: '', d: '' },
                     correct: 'a',
@@ -135,6 +146,8 @@
                 
                 // Collect all questions data
                 const questions = [];
+                const portionName = $('#portion-name').val();
+                
                 $('.question-card').each(function() {
                     const card = $(this);
                     const answersObj = {};
@@ -145,6 +158,7 @@
                     });
                     
                     questions.push({
+                        portion_name: portionName,
                         question: card.find('.question-text').val(),
                         answers: answersObj,
                         correct: card.find('.correct-answer').val(),

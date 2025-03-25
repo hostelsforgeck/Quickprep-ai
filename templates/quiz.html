@@ -170,11 +170,25 @@
             height: 10px;
             opacity: 0;
         }
+
+        .portion-name {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .portion-name i {
+            color: var(--primary);
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
     <nav class="navbar">
-        <div class="logo">QuizMaster</div>
+        <div class="logo">Quickprep.ai</div>
         <div class="nav-links">
         </div>
         <div class="user-menu">
@@ -202,7 +216,13 @@
                         {% elif question["difficulty"] == "High" %}
                             <span class="glowing-circle bg-red-500" style="box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);"></span>
                         {% endif %}
-                        <p class="font-semibold">{{ question["question"] }}</p>
+                        <div>
+                            <p class="font-semibold">{{ question["question"] }}</p>
+                            <div class="portion-name">
+                                <i class="fas fa-tag"></i>
+                                {{ question["portion_name"] }}
+                            </div>
+                        </div>
                     </div>
                     <div class="answer-options mt-2" data-question-id="{{ loop.index }}">
                         <!-- Answer options will be added dynamically via JavaScript -->
