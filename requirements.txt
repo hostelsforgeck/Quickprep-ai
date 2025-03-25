@@ -1,5 +1,4 @@
 Flask
 PyMuPDF
-faiss-cpu
 numpy
 requests
